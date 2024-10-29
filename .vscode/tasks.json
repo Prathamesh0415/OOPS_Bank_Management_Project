@@ -1,0 +1,45 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build BankManagement Project",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++11",
+                "-I", "include",            // Include directory for main headers
+                "-I", "utils",              // Include directory for utility headers
+                "main.cpp",                 // Main entry file
+                "${workspaceFolder}/src/*.cpp", // All .cpp files in the src directory
+                "-o", "${workspaceFolder}/BankManagement"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Compiles all .cpp files in the project with utility support"
+        }
+    ]
+}
+
+
+/*label: Name for the task. It can be anything; here, it’s "Build BankManagement Project."
+type: Set to "shell" since we’re running a shell command (g++).
+command: The compiler command, g++.
+args:
+-std=c++11: Specify the C++ standard. You can change this to another version if needed.
+-I, include: Include directory for header files.
+main.cpp: Specifies the main file directly in the project root.
+${workspaceFolder}/src/*.cpp: Tells g++ to compile all .cpp files in the src directory.
+-o, ${workspaceFolder}/BankManagement: Sets the output executable name to "BankManagement."
+group: Indicates that this task is part of the build group and sets it as the default task.
+problemMatcher: Matches compiler errors, so errors and warnings appear in the Problems tab.
+detail: Optional description of the task.
+Running the Task
+Now, you can run this build task by pressing:
+
+Ctrl+Shift+B (which will run the default build task), or
+Opening the Command Palette (Ctrl+Shift+P), typing “Run Build Task,” and selecting your task.
+This will compile all files each time you run the build task, so you don’t have to manually compile them in the terminal.
+*/
