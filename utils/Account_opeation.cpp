@@ -1,10 +1,11 @@
 #include "../include/Account.h"
+#include "../include/Bank.h"
 #include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
 
-Account create_account(){
+Account* create_account(){
     string name;
     int balance;
 
@@ -13,6 +14,6 @@ Account create_account(){
     cout << "Enter the starting balance : " << endl;
     cin >> balance;
     
-    Account temp{name, balance};
+    Account* temp = create_account(name, balance);
     return temp;
 }

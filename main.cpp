@@ -23,18 +23,13 @@ int main(){
             break;
         }
 
-        Account a2{"admin", 000};
-
         switch (choice) {
             case 1:{
                 cout << "Adding functionality to create account" << endl;
-                Account a1{"prat", 123};
                 break;
             }
             case 2:{
                 cout << "Adding functionality to view existing account " << endl;
-                a2.display();
-                //create_account();
                 break;
             }
             case 3:{
