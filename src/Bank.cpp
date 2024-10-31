@@ -2,6 +2,7 @@
 #include <iostream>
 #include <bits/stdc++.h>
 #include <ctime>
+#include <vector>
 
 int Bank::generate_random_acc_number(){
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
