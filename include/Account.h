@@ -3,14 +3,15 @@
 
 #include <iostream>
 
+
 class Account {
     private : 
-        int account_number;
+        //int account_number;
         double balance;
         std::string account_holder;
-        std::string creation_time_date;
+        //std::string creation_time_date;
     public :
-        Account(std::string name, double amount, std::string time);
+        Account();
         void display();
 };
 

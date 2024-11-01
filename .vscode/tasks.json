@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-std=c++11",
+                "-std=c++17",
                 "-I", "include",            // Include directory for main headers
                 "-I", "utils",              // Include directory for utility headers
                 "main.cpp",                 // Main entry file
