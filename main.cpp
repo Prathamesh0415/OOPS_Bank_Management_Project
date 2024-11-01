@@ -1,15 +1,16 @@
 #include <iostream>
 #include <vector>
+#include <unordered_set>
 #include "./include/Account.h"
-//#include "./include/Bank.h"
-//#include "utils/Account_opeation.cpp"
+#include "./include/Bank.h"
+
 
 using namespace std;
 
 int main(){
     int choice {0};
 
-    vector<Account *> Accounts;
+    Bank Bank;
     
     while(1){
         
@@ -30,11 +31,12 @@ int main(){
             case 1:{
                 cout << "Adding functionality to create account" << endl;
                 Account *temp = new Account();
-                Accounts.push_back(temp);
+                Bank.Accounts.push_back(temp);
                 break;
             }
             case 2:{
                 cout << "Adding functionality to view existing account " << endl;
+                Bank.Accounts[0]->display();
                 break;
             }
             case 3:{

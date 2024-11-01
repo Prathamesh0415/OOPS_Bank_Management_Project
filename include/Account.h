@@ -5,11 +5,12 @@
 
 
 class Account {
+
     private : 
-        //int account_number;
+        int account_number {000000};
         double balance;
         std::string account_holder;
-        //std::string creation_time_date;
+        std::string creation_time_date;
     public :
         Account();
         void display();
