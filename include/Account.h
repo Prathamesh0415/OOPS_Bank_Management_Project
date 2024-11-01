@@ -12,8 +12,9 @@ class Account {
         std::string account_holder;
         std::string creation_time_date;
     public :
-        Account();
+        Account(int acc_no);
         void display();
+        int get_account_number();
 };
 
 #endif

@@ -3,7 +3,7 @@
 #include <unordered_set>
 #include "./include/Account.h"
 #include "./include/Bank.h"
-
+#include "./include/Utility.h"
 
 using namespace std;
 
@@ -26,17 +26,33 @@ int main(){
             cout << "Thank you for trying us " << endl;
             break;
         }
-
         switch (choice) {
             case 1:{
-                cout << "Adding functionality to create account" << endl;
-                Account *temp = new Account();
+                int acc_no = {000000};
+                do{
+                    acc_no = random_generation_acc_number();
+                }while(Bank.account_numbers.find(acc_no) != Bank.account_numbers.end());
+                
+                Bank.account_numbers.insert(acc_no);
+                
+                Account *temp = new Account(acc_no);
                 Bank.Accounts.push_back(temp);
+                temp->display();
+                
                 break;
             }
             case 2:{
-                cout << "Adding functionality to view existing account " << endl;
-                Bank.Accounts[0]->display();
+                int acc_num;
+                cout << "Enter the account number you want to know details about : " << endl;
+                cin >> acc_num;
+
+                for(int i = 0; i<Bank.Accounts.size(); i++){
+                    if( acc_num == Bank.Accounts[i]->get_account_number()){
+                        Bank.Accounts[i]->display();
+                        break;
+                    }
+                }
+
                 break;
             }
             case 3:{
