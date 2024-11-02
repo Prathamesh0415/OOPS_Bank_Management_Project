@@ -1,15 +1,15 @@
 #include "../include/Account.h"
+#include "../include/Saving.h"
 #include "../include/Utility.h"
 #include <iostream>
 #include <string>
 #include <limits>
 
-using namespace  std;
+using namespace std;
 
-Account::Account(){};
-
-Account::Account(int number){
-
+Saving::Saving(int number){
+    
+    double intrest;
     std::string name;
     double amount;
 
@@ -19,39 +19,40 @@ Account::Account(int number){
     std::getline(std::cin, name);
     std::cout << "Enter the Deposit amount : " ;
     std::cin >> amount;
+    cout << "Enter the intrest rate : " << endl;
+    cin >> intrest;
  
     this->account_holder = name;
     this->balance = amount;
+    this->intrest_rate = intrest;
 
     this->creation_time_date = get_current_time_date();
     this->account_number = number;
-
 }
 
-void Account::display(){
+int Saving::calculate_intrest(){
+    return balance * intrest_rate / 100 ;
+}
+
+int Saving::calculate_total_balance(){
+    return balance+= calculate_intrest();
+}
+
+void Saving::display(){
 
     std::cout << "The name of the account holder is : " << this->account_holder << std::endl;
     std::cout << "The balance in the account is : " << this->balance << std::endl;
     std::cout << "The Account number is : " << this->account_number << std::endl;
-    std::cout << "This account was created on  : " << this->creation_time_date << std::endl ; 
+    std::cout << "This account was created on  : " << this->creation_time_date << std::endl ;
+    cout << "The intrest on the account is : " << this->intrest_rate;
+    calculate_total_balance();
+    cout << "The final balance of the account is : " << this->balance;  
+
 }
 
-int Account::get_account_number(){
-    return this->account_number;
-}
 
-string Account::get_account_holder(){
-    return this->account_holder;
-}
 
-double Account::get_balance(){
-    return this->balance;
-}
 
-void Account::deposit(double amount){
-    this->balance += amount;
-}
 
-void Account::withdraw(double amount){
-    this->balance -= amount;
-}
+
+

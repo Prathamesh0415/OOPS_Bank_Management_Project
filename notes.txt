@@ -1,0 +1,7 @@
+Type of Accounts ->
+Savings Account
+Recurring Deposit Account 
+Fixed Deposit Account 
+Current Account
+Salary Accounts
+NRI Accounts 

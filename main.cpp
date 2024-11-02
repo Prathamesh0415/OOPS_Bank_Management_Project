@@ -4,6 +4,7 @@
 #include "./include/Account.h"
 #include "./include/Bank.h"
 #include "./include/Utility.h"
+#include "./include/Saving.h"
 
 using namespace std;
 
@@ -14,11 +15,7 @@ int main(){
     
     while(1){
         
-        cout << "Refer the catlaoug given below to perform the required task : " << endl;
-        cout << " 1. Create new Account " << endl;
-        cout << " 2. View account details " << endl;
-        cout << " 3. Update existing account " << endl;
-        cout << " 4. Exit " << endl;
+        display();
         
         cin >> choice;
 
@@ -35,10 +32,33 @@ int main(){
                 
                 Bank.account_numbers.insert(acc_no);
                 
-                Account *temp = new Account(acc_no);
+                int account_choice;
+
+                cout << "Enter the type of account tou want to create : " << endl;
+                cout << " 1. For Bank Account" << endl;
+                cout << " 2. For Saving Account " << endl;
+                cin >> account_choice;
+
+                switch(account_choice)  {
+                    case 1: {
+                        Account *temp = new Account(acc_no);
+                        Bank.Accounts.push_back(temp);
+                        temp->display();
+                        break;
+                    }
+                    case 2:{
+                        Account *temp = new Saving(acc_no);
+                        Bank.Accounts.push_back(temp);
+                        temp->display();
+                    }
+                    default:{
+                        cout << "Choose an appropiate number " << endl;
+                        break;
+                    }
+                }
+                /*Account *temp = new Account(acc_no);
                 Bank.Accounts.push_back(temp);
-                temp->display();
-                
+                temp->display();*/
                 break;
             }
             case 2:{

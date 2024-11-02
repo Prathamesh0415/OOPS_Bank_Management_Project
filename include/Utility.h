@@ -7,5 +7,6 @@
 std::string get_current_time_date();
 int random_generation_acc_number();
 void flush_input();
+void display();
 
 #endif

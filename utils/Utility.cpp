@@ -23,3 +23,11 @@ int random_generation_acc_number(){
 void flush_input(){
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
+
+void display(){
+        cout << "Refer the catlaoug given below to perform the required task : " << endl;
+        cout << " 1. Create new Account " << endl;
+        cout << " 2. View account details " << endl;
+        cout << " 3. Update existing account " << endl;
+        cout << " 4. Exit " << endl;
+}
