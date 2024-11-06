@@ -3,9 +3,7 @@
 
 #include <iostream>
 
-
 class Account {
-
     protected : 
         int account_number {000000};
         double balance;

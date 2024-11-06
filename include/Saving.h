@@ -4,7 +4,6 @@
 #include "Account.h"
 #include <iostream>
 
-
 class Saving: public Account {
     protected :
         double intrest_rate {0};
