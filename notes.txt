@@ -1,6 +1,6 @@
 Type of Accounts ->
 Savings Account
-Recurring Deposit Account 
-Fixed Deposit Account 
+Recurring Deposit 
+Fixed Deposit 
 Salary Accounts
 NRI Accounts 
