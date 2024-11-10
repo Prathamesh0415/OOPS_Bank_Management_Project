@@ -5,6 +5,7 @@
 #include "./include/Bank.h"
 #include "./include/Utility.h"
 #include "./include/Saving.h"
+#include "./include/Errors.h"
 
 using namespace std;
 
@@ -16,8 +17,12 @@ int main(){
     while(1){
         
         main_display();
-        
-        cin >> choice;
+        try{
+            choice = get_input_number();
+        }catch  (const invalid_argument &error) {
+            cout << error.what() << endl;
+            continue;
+        }
 
         if (choice == 4) {
             cout << "Thank you for trying us " << endl;
@@ -37,9 +42,10 @@ int main(){
                 //cout << "Adding functionality to update existing account " << endl;
                 break;
             }
-            default :
+            default :{
                 cout << "Please select appropiate option " << endl;
                 break;
+            }
         }
 
     }

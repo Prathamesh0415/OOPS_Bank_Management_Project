@@ -3,6 +3,7 @@
 #include "../include/Saving.h"
 #include "../include/Recurring.h"
 #include "../include/Fixed.h"
+#include "../include/Errors.h"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -44,11 +45,18 @@ void type_account_display(Bank &obj){
                 obj.account_numbers.insert(acc_no);
                 
                 int account_choice;
-
+                start:
                 cout << "Enter the type of account tou want to create : " << endl;
                 cout << " 1. For Bank Account" << endl;
                 cout << " 2. For Saving Account " << endl;
-                cin >> account_choice;
+                //cin >> account_choice;
+
+                try {
+                    account_choice = get_input_number();
+                } catch (const invalid_argument &error){
+                    cout << error.what() << endl;
+                    goto start;
+                }
 
                 switch(account_choice)  {
                     case 1: {
@@ -99,10 +107,16 @@ void perform_operations_on_accounts(Bank &obj){
                 }
         Account *account = obj.Accounts[i];
         int choice;
+        start:
         cout << "Enter the number corresponding to the operation you want to perform : " << endl;
         cout << "1. To create a Recurring Deposit " << endl;
         cout << "2. To create a Fixed deposit " << endl;
-        cin >> choice;
+        try{
+            choice = get_input_number();
+        }catch (const invalid_argument &error){
+            cout << error.what() << endl;
+            goto start;
+        }
         switch (choice){
             case 1:{
                 Account *temp = new Recurring(account);
