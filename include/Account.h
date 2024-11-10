@@ -5,6 +5,7 @@
 
 class Account {
     protected : 
+        std::string account_type {"Bank Account"};
         int account_number {000000};
         double balance;
         std::string account_holder;
@@ -21,6 +22,7 @@ class Account {
         std::string get_account_holder();
         std::string get_creation_time_date();
         double get_balance();
+        std::string get_account_type();
 };
 
 #endif

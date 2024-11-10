@@ -4,6 +4,7 @@
 #include "../include/Recurring.h"
 #include "../include/Fixed.h"
 #include "../include/Errors.h"
+#include "../include/Salary.h"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -51,6 +52,7 @@ Account type_account_display(Bank &obj){
                 cout << "Enter the type of account tou want to create : " << endl;
                 cout << " 1. For Bank Account" << endl;
                 cout << " 2. For Saving Account " << endl;
+                cout << " 3. For Salary Account " << endl;
                 //cin >> account_choice;
 
                 try {
@@ -67,16 +69,16 @@ Account type_account_display(Bank &obj){
                         flush_input();
                         std::cout << "Enter the name of the account holder : ";
                         std::getline(std::cin, name);
-                        start:
+                        start1:
                         std::cout << "Enter the Deposit amount : " ;
                         try{
                             amount = get_deposit_amount();
                         } catch (const invalid_argument &error){
                             cout << error.what() << endl;
-                            goto start;
+                            goto start1;
                         } catch (string error){
                             cout << error << endl;
-                            goto start;
+                            goto start1;
                         }
                         Account *temp = new Account(acc_no, name, amount);
                         obj.Accounts.push_back(temp);
@@ -84,20 +86,57 @@ Account type_account_display(Bank &obj){
                         return *temp;
                     }
                     case 2:{
+                        double intrest;
                         std::string name;
                         double amount;
-                        start:
+                        flush_input();
+                        std::cout << "Enter the name of the account holder : ";
+                        std::getline(std::cin, name);
+                        start2:
+                        cout << "Enter the intrest rate : " << endl;
+                        try{
+                            intrest = get_intrest_rate();
+                        }catch(const invalid_argument &error){
+                            cout << error.what() << endl;
+                            goto start2;
+                        }catch(string &error){
+                            cout << error << endl;
+                            goto start2;
+                        }
+                        start3:
                         std::cout << "Enter the Deposit amount : " ;
                         try{
                             amount = get_deposit_amount();
                         } catch (const invalid_argument &error){
                             cout << error.what() << endl;
-                            goto start;
+                            goto start3;
                         } catch (string error){
                             cout << error << endl;
-                            goto start;
+                            goto start3;
                         }
-                        Account *temp = new Saving(acc_no);
+                        Account *temp = new Saving(acc_no, name, intrest, amount);
+                        obj.Accounts.push_back(temp);
+                        temp->display();
+                        return *temp;
+                    }
+                    case 3:{
+                        std::string name;
+                        double salary;
+                        flush_input();
+                        std::cout << "Enter the name of the account holder : ";
+                        std::getline(std::cin, name);
+                        start4:
+                        cout << " Enter the salary amount " << endl;
+                        try{
+                            salary = get_deposit_amount();
+                        } catch (const invalid_argument &error){
+                            cout << error.what() << endl;
+                            goto start4;
+                        } catch (string error){
+                            cout << error << endl;
+                            goto start4;
+                        }
+                        Account *temp = new Salary(acc_no, salary, name);
                         obj.Accounts.push_back(temp);
                         temp->display();
                         return *temp;
@@ -181,6 +220,7 @@ void save_account_details(Account &obj){
     if(counter == 1){
         file << setw(10) << left << "Sr No."
          << setw(30) << left << "Name"
+         << setw(20) << left << "Account type"
          << setw(20) << left << "Account Number"
          << setw(20) << left << "Account Balance"
          << left << "Date of creation" << endl;
@@ -188,8 +228,13 @@ void save_account_details(Account &obj){
 
     file << setw(10) << left << counter
          << setw(30) << left << obj.get_account_holder()
+         << setw(20) << obj.get_account_type()
          << setw(20) << left << obj.get_account_number()
          << setw(20) << left << obj.get_balance()
          << left << obj.get_creation_time_date();
     counter++;
+}
+
+void save_RD_FD_details(){
+
 }

@@ -8,7 +8,7 @@ class Saving: public Account {
     protected :
         double intrest_rate {0};
     public :
-        Saving(int number);
+        Saving(int number, std::string name, double interst, double amount);
         virtual void display() override;
         int calculate_intrest();
         int calculate_total_balance();

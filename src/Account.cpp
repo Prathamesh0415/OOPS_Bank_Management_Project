@@ -48,3 +48,7 @@ void Account::withdraw(double amount){
 string Account::get_creation_time_date(){
     return this->creation_time_date;
 }
+
+string Account::get_account_type(){
+    return this->account_type;
+}
