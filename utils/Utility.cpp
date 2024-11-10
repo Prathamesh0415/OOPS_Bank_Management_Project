@@ -8,6 +8,8 @@
 #include <ctime>
 #include <cstdlib>
 #include <limits>
+#include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -36,7 +38,7 @@ void main_display(){
         cout << " 4. Exit " << endl;
 }
 
-void type_account_display(Bank &obj){
+Account type_account_display(Bank &obj){
     int acc_no = {000000};
                 do{
                     acc_no = random_generation_acc_number();
@@ -60,15 +62,45 @@ void type_account_display(Bank &obj){
 
                 switch(account_choice)  {
                     case 1: {
-                        Account *temp = new Account(acc_no);
+                        std::string name;
+                        double amount;
+                        flush_input();
+                        std::cout << "Enter the name of the account holder : ";
+                        std::getline(std::cin, name);
+                        start:
+                        std::cout << "Enter the Deposit amount : " ;
+                        try{
+                            amount = get_deposit_amount();
+                        } catch (const invalid_argument &error){
+                            cout << error.what() << endl;
+                            goto start;
+                        } catch (string error){
+                            cout << error << endl;
+                            goto start;
+                        }
+                        Account *temp = new Account(acc_no, name, amount);
                         obj.Accounts.push_back(temp);
                         temp->display();
-                        break;
+                        return *temp;
                     }
                     case 2:{
+                        std::string name;
+                        double amount;
+                        start:
+                        std::cout << "Enter the Deposit amount : " ;
+                        try{
+                            amount = get_deposit_amount();
+                        } catch (const invalid_argument &error){
+                            cout << error.what() << endl;
+                            goto start;
+                        } catch (string error){
+                            cout << error << endl;
+                            goto start;
+                        }
                         Account *temp = new Saving(acc_no);
                         obj.Accounts.push_back(temp);
                         temp->display();
+                        return *temp;
                     }
                     default:{
                         cout << "Choose an appropiate number " << endl;
@@ -135,7 +167,29 @@ void perform_operations_on_accounts(Bank &obj){
                 break;
             }
         }
-       
-        
+}
 
+void save_account_details(Account &obj){
+    static int counter {1};
+    ofstream file;
+    file.open("Files/account_details.txt", ios::app);
+
+    if(!file){
+        cout << "Error opening file : " << endl;
+    }
+
+    if(counter == 1){
+        file << setw(10) << left << "Sr No."
+         << setw(30) << left << "Name"
+         << setw(20) << left << "Account Number"
+         << setw(20) << left << "Account Balance"
+         << left << "Date of creation" << endl;
+    }
+
+    file << setw(10) << left << counter
+         << setw(30) << left << obj.get_account_holder()
+         << setw(20) << left << obj.get_account_number()
+         << setw(20) << left << obj.get_balance()
+         << left << obj.get_creation_time_date();
+    counter++;
 }

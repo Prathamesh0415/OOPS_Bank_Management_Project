@@ -11,7 +11,7 @@ class Account {
         std::string creation_time_date;
     public :
         Account();
-        Account(int acc_no);
+        Account(int acc_no, std::string name, double amount);
 
         virtual void display();
         virtual void deposit(double amount);
@@ -19,6 +19,7 @@ class Account {
 
         int get_account_number();
         std::string get_account_holder();
+        std::string get_creation_time_date();
         double get_balance();
 };
 

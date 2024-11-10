@@ -8,21 +8,10 @@ using namespace  std;
 
 Account::Account(){};
 
-Account::Account(int number){
+Account::Account(int number, string name, double amount){
 
-    std::string name;
-    double amount;
-
-    flush_input();
-
-    std::cout << "Enter the name of the account holder : ";
-    std::getline(std::cin, name);
-    std::cout << "Enter the Deposit amount : " ;
-    std::cin >> amount;
- 
     this->account_holder = name;
     this->balance = amount;
-
     this->creation_time_date = get_current_time_date();
     this->account_number = number;
 
@@ -54,4 +43,8 @@ void Account::deposit(double amount){
 
 void Account::withdraw(double amount){
     this->balance -= amount;
+}
+
+string Account::get_creation_time_date(){
+    return this->creation_time_date;
 }

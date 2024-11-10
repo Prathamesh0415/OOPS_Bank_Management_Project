@@ -17,9 +17,9 @@ int main(){
     while(1){
         
         main_display();
-        try{
+        try {
             choice = get_input_number();
-        }catch  (const invalid_argument &error) {
+        } catch  (const invalid_argument &error) {
             cout << error.what() << endl;
             continue;
         }
@@ -30,7 +30,8 @@ int main(){
         }
         switch (choice) {
             case 1:{
-                type_account_display(Bank);
+                Account temp = type_account_display(Bank);
+                save_account_details(temp);
                 break;
             }   
             case 2:{
