@@ -34,8 +34,8 @@ void Saving::display(){
     std::cout << "The Account number is : " << this->account_number << std::endl;
     std::cout << "This account was created on  : " << this->creation_time_date << std::endl;
     cout << "The intrest on the account is : " << this->intrest_rate << std::endl;
-    calculate_total_balance();
-    cout << "The final balance of the account is : " << this->balance << std::endl;  
+    //calculate_total_balance();
+    //cout << "The final balance of the account is : " << this->balance << std::endl;  
 
 }
 

@@ -5,6 +5,7 @@
 #include "../include/Fixed.h"
 #include "../include/Errors.h"
 #include "../include/Salary.h"
+#include "../include/Utility.h"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -182,6 +183,9 @@ void perform_operations_on_accounts(Bank &obj){
         cout << "Enter the number corresponding to the operation you want to perform : " << endl;
         cout << "1. To create a Recurring Deposit " << endl;
         cout << "2. To create a Fixed deposit " << endl;
+        cout << "3. To deposit money into bank account " << endl;
+        cout << "4. To withdraw money from bank account " << endl;
+        cout << "5. To deposit salary into salary account " << endl;
         try{
             choice = get_input_number();
         }catch (const invalid_argument &error){
@@ -190,14 +194,16 @@ void perform_operations_on_accounts(Bank &obj){
         }
         switch (choice){
             case 1:{
-                Account *temp = new Recurring(account);
+                Recurring *temp = new Recurring(account);
                 temp->display();
+                save_RD_details(*temp);
                 //break;
                 return;
             }
             case 2:{
-                Account *temp = new Fixed(account);
+                Fixed *temp = new Fixed(account);
                 temp->display();
+                save_FD_details(*temp);
                 //break;
                 return;
             }
@@ -233,8 +239,73 @@ void save_account_details(Account &obj){
          << setw(20) << left << obj.get_balance()
          << left << obj.get_creation_time_date();
     counter++;
+
+    file.close();
 }
 
-void save_RD_FD_details(){
+ static int RD_FD_counter {1};
+
+void save_RD_details(Recurring &obj){
+   
+    ofstream file;
+    file.open("Files/RD_FD_account_details.txt", ios::app);
+
+    if(!file){
+        cout << "Error opening file : " << endl;
+    }
+
+    if(RD_FD_counter == 1){
+        file << setw(10) << left << "Sr No."
+         << setw(30) << left << "Name"
+         << setw(20) << left << "Deposit type"
+         << setw(20) << left << "Account Number"
+         << setw(20) << left << "Maturity time"
+         << setw(15) << left << "Intrest"
+         << left << "Date of creation" << endl;
+    }
+
+    file << setw(10) << left << RD_FD_counter
+         << setw(30) << left << obj.get_RD_account_holder()
+         << setw(20) << left << obj.get_deposit_type()
+         << setw(20) << left << obj.get_RD_account_number()
+         << setw(20) << left << obj.get_RD_time_in_months()
+         << setw(15) << left << obj.get_RD_intrest_rate()
+         << left << obj.get_RD_creation_time_date() << endl;
+
+    RD_FD_counter++;
+    file.close();
 
 }
+
+void save_FD_details(Fixed &obj){
+   
+    ofstream file;
+    file.open("Files/RD_FD_account_details.txt", ios::app);
+
+    if(!file){
+        cout << "Error opening file : " << endl;
+    }
+
+    if(RD_FD_counter == 1){
+        file << setw(10) << left << "Sr No."
+         << setw(30) << left << "Name"
+         << setw(20) << left << "Deposit type"
+         << setw(20) << left << "Account Number"
+         << setw(20) << left << "Maturity time"
+         << setw(15) << left << "Intrest"
+         << left << "Date of creation" << endl;
+    }
+
+    file << setw(10) << left << RD_FD_counter
+         << setw(30) << left << obj.get_FD_account_holder()
+         << setw(20) << left << obj.get_deposit_type()
+         << setw(20) << left << obj.get_FD_account_number()
+         << setw(20) << left << obj.get_FD_time_in_months()
+         << setw(15) << left << obj.get_FD_intrest_rate()
+         << left << obj.get_FD_creation_time_date() << endl;
+
+    RD_FD_counter++;
+    file.close();
+
+}
+

@@ -1,4 +1,0 @@
-Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         Prathamesh                    Bank Account        109910              10000               Sun Nov 10 23:26:34 2024
-2         Prathamesh                    Savings Account     109956              -2.14747e+009       Sun Nov 10 23:26:51 2024
-3         Prathamesh                    Salary Account      110109              10000               Sun Nov 10 23:27:34 2024

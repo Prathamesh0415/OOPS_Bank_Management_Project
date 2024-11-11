@@ -6,14 +6,22 @@
 
 class Recurring : public Account {
     protected :
+        std::string deposit_type {"Reccurring Deposit"};
         int RD_account_number {0};
-        std::string RD_account_holder {0}; 
+        std::string RD_account_holder ; 
         double RD_intrest_rate {0};
         int RD_time_in_months {0};
         double RD_deposit_amount;
+        std::string RD_creation_time_date; 
 
     public :
         Recurring(Account *obj);
+        std::string get_RD_account_holder();
+        int get_RD_account_number();
+        std::string get_deposit_type();
+        double get_RD_intrest_rate();
+        int get_RD_time_in_months();
+        std::string get_RD_creation_time_date();
         //void RD_info();
         //virtual void deposit();
         //virtual void withdraw();
