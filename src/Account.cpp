@@ -52,3 +52,18 @@ string Account::get_creation_time_date(){
 string Account::get_account_type(){
     return this->account_type;
 }
+
+ostream& operator<<(ostream &out, Account &obj){
+
+    int acc_no = obj.get_account_number() % 1000;
+
+    out << "The name of the account holder is : " << endl;
+    out << obj.get_account_holder() << endl;
+    out << "The account number of the account holder is : " << endl;
+    out << "XXXX" << acc_no << endl;
+    out << "The balance of the account is : " << endl;
+    out << obj.get_balance() << endl;
+
+    return out;
+
+}

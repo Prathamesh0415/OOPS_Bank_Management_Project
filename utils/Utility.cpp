@@ -160,7 +160,8 @@ void view_details_account_display(Bank &obj){
 
                 for(int i = 0; i<obj.Accounts.size(); i++){
                     if( acc_num == obj.Accounts[i]->get_account_number()){
-                        obj.Accounts[i]->display();
+                        Account temp = (*obj.Accounts[i]);
+                        cout << temp;
                         break;
                     }
                 }

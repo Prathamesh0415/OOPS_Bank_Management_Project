@@ -4,6 +4,9 @@
 #include <iostream>
 
 class Account {
+
+    friend std::ostream &operator<<(std::ostream &out, Account &obj);
+
     protected : 
         std::string account_type {"Bank Account"};
         int account_number {000000};
@@ -23,6 +26,7 @@ class Account {
         std::string get_creation_time_date();
         double get_balance();
         std::string get_account_type();
+
 };
 
 #endif

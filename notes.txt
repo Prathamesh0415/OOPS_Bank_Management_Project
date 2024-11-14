@@ -1,5 +1,7 @@
-
--> implement RD and FD functions
--> implement deposit and withdraw methods on different types of account
+-> Loan implementation
+-> Implement RD and FD functions
+-> Operator Overloading
+-> **better UI/UX 
+-> transaction history
 
 
