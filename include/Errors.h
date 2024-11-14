@@ -2,9 +2,11 @@
 #define _ERRORS_H_
 
 #include <iostream>
+#include "Account.h"
 
 int get_input_number();
-double get_deposit_amount();
+double get_deposit_amount(int flag);
 double get_intrest_rate();
+double get_withdraw_amount(Account &obj);
 
 #endif

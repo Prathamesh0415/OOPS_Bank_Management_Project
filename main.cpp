@@ -31,7 +31,7 @@ int main(){
         switch (choice) {
             case 1:{
                 Account temp = type_account_display(Bank);
-                save_account_details(temp);
+                save_account_details(temp, 1);
                 break;
             }   
             case 2:{

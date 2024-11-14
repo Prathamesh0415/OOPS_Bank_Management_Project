@@ -12,6 +12,7 @@
 #include <limits>
 #include <fstream>
 #include <iomanip>
+#include <vector>
 
 using namespace std;
 
@@ -73,7 +74,7 @@ Account type_account_display(Bank &obj){
                         start1:
                         std::cout << "Enter the Deposit amount : " ;
                         try{
-                            amount = get_deposit_amount();
+                            amount = get_deposit_amount(acc_no);
                         } catch (const invalid_argument &error){
                             cout << error.what() << endl;
                             goto start1;
@@ -107,7 +108,7 @@ Account type_account_display(Bank &obj){
                         start3:
                         std::cout << "Enter the Deposit amount : " ;
                         try{
-                            amount = get_deposit_amount();
+                            amount = get_deposit_amount(acc_no);
                         } catch (const invalid_argument &error){
                             cout << error.what() << endl;
                             goto start3;
@@ -129,7 +130,7 @@ Account type_account_display(Bank &obj){
                         start4:
                         cout << " Enter the salary amount " << endl;
                         try{
-                            salary = get_deposit_amount();
+                            salary = get_deposit_amount(acc_no);
                         } catch (const invalid_argument &error){
                             cout << error.what() << endl;
                             goto start4;
@@ -207,6 +208,40 @@ void perform_operations_on_accounts(Bank &obj){
                 //break;
                 return;
             }
+            case 3:{
+                double amount;
+                start1:
+                cout << "Enter the amount to be deposited in the bank acount : " << endl;
+                try{
+                    amount = get_deposit_amount(1);
+                } catch(const invalid_argument &error){
+                    cout << error.what() << endl;
+                    goto start1;
+                } catch (string &error){
+                    cout << error << endl;
+                    goto start1;
+                }
+                account->deposit(amount);
+                update_account_details_in_file(obj);
+                break;
+            }
+            case 4:{
+                double amount;
+                start2:
+                cout << "Enter the amount you want to deposit from the account : " << endl;
+                try{
+                    amount = get_withdraw_amount(*account);
+                } catch (const invalid_argument &error) {
+                    cout << error.what() << endl;
+                    goto start2;
+                } catch (string &error) {
+                    cout << error << endl;
+                    goto start2;
+                }
+                account->withdraw(amount);
+                update_account_details_in_file(obj);
+                break;
+            }
             default : {
                 cout << "Enter appropriate choice : " << endl;
                 break;
@@ -214,16 +249,22 @@ void perform_operations_on_accounts(Bank &obj){
         }
 }
 
-void save_account_details(Account &obj){
-    static int counter {1};
+static int account_counter {1};
+
+void save_account_details(Account &obj, int flag = 1){
+    
     ofstream file;
-    file.open("Files/account_details.txt", ios::app);
+    if(flag == 0){
+    file.open("Files/account_details.txt");
+    }else{
+       file.open("Files/account_details.txt", ios::app); 
+    }
 
     if(!file){
         cout << "Error opening file : " << endl;
     }
 
-    if(counter == 1){
+    if(account_counter == 1){
         file << setw(10) << left << "Sr No."
          << setw(30) << left << "Name"
          << setw(20) << left << "Account type"
@@ -232,13 +273,13 @@ void save_account_details(Account &obj){
          << left << "Date of creation" << endl;
     }
 
-    file << setw(10) << left << counter
+    file << setw(10) << left << account_counter
          << setw(30) << left << obj.get_account_holder()
          << setw(20) << obj.get_account_type()
          << setw(20) << left << obj.get_account_number()
          << setw(20) << left << obj.get_balance()
          << left << obj.get_creation_time_date();
-    counter++;
+    account_counter++;
 
     file.close();
 }
@@ -249,7 +290,7 @@ void save_RD_details(Recurring &obj){
    
     ofstream file;
     file.open("Files/RD_FD_account_details.txt", ios::app);
-
+    
     if(!file){
         cout << "Error opening file : " << endl;
     }
@@ -307,5 +348,14 @@ void save_FD_details(Fixed &obj){
     RD_FD_counter++;
     file.close();
 
+}
+
+void update_account_details_in_file(Bank &obj){
+    account_counter = 1;
+    int i = 0;
+    while( i < obj.Accounts.size()){
+        save_account_details(*obj.Accounts[i],i);
+        i++;
+    }       
 }
 

@@ -1,0 +1,6 @@
+Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
+1         Prathamesh                    Bank Account        100554              20000               Thu Nov 14 13:03:14 2024
+2         Atharva                       Savings Account     100609              5000                Thu Nov 14 13:03:33 2024
+3         Pavan                         Salary Account      100652              10000               Thu Nov 14 13:03:45 2024
+Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
+1         Prathamesh                    Bank Account        101370              23132               Thu Nov 14 13:07:34 2024
