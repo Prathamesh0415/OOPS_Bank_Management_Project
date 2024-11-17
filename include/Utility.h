@@ -16,8 +16,15 @@ Account type_account_display(Bank &obj);
 void view_details_account_display(Bank &obj);
 void perform_operations_on_accounts(Bank &obj);
 void save_account_details(Account &obj, int flag);
-void save_RD_details(Recurring &obj);
+void save_RD_details(Recurring &obj, int flag);
 void save_FD_details(Fixed &obj);
 void update_account_details_in_file(Bank &obj);
+void get_a_loan(Bank &obj);
+void perform_operations_on_RD(Bank &obj);
+void update_RD_details(Bank &obj);
+template <typename T>
+void delete_element(std::vector<T *>& vec, T &value);
+void close_bank_account(Bank &obj);
+
 
 #endif

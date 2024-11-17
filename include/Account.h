@@ -21,11 +21,13 @@ class Account {
         virtual void deposit(double amount);
         virtual void withdraw(double amount);
 
-        int get_account_number();
+        virtual int get_account_number();
         std::string get_account_holder();
         std::string get_creation_time_date();
         double get_balance();
         std::string get_account_type();
+
+        bool operator==( Account &obj);
 
 };
 

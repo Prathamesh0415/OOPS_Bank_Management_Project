@@ -6,6 +6,7 @@
 #include "../include/Errors.h"
 #include "../include/Salary.h"
 #include "../include/Utility.h"
+#include "../include/Loan.h"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -13,13 +14,13 @@
 #include <fstream>
 #include <iomanip>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 string get_current_time_date(){
     time_t timestamp;
     time(&timestamp);
-
     return ctime(&timestamp);
 }
 
@@ -27,6 +28,27 @@ int random_generation_acc_number(){
     srand(time(0)); // seeding the random number generator to current time;
     int random_number = 100000 + rand()%900000;
     return random_number;
+}
+
+template <typename T>
+void delete_element(std::vector<T *>& vec, T &value) {
+    /*auto it = std::find(vec.begin(), vec.end(), value);
+    if (it != vec.end()) {
+        vec.erase(it);
+        return;
+    } else {
+        cout << "The account number was not found" << endl;
+        return;
+    }*/
+
+   for(int i=0; i<vec.size(); i++){
+    if(*vec[i] == value){
+        vec.erase(vec.begin() + i);
+        return;
+    }
+   }
+   cout << "Account not found " << endl;
+   return;
 }
 
 void flush_input(){
@@ -38,7 +60,10 @@ void main_display(){
         cout << " 1. Create new Account " << endl;
         cout << " 2. View account details " << endl;
         cout << " 3. Update existing account " << endl;
-        cout << " 4. Exit " << endl;
+        cout << " 4. Get a loan " << endl;
+        cout << " 5. Perform operations on RD " << endl;
+        cout << " 6. Close Account " << endl;
+        cout << " 7. To exit " << endl;
 }
 
 Account type_account_display(Bank &obj){
@@ -175,7 +200,6 @@ void perform_operations_on_accounts(Bank &obj){
                 for(i = 0; i<obj.Accounts.size(); i++){
                     if( acc_num == obj.Accounts[i]->get_account_number()){
                         obj.Accounts[i]->display();
-                       
                         break;
                     }
                 }
@@ -197,13 +221,15 @@ void perform_operations_on_accounts(Bank &obj){
         switch (choice){
             case 1:{
                 Recurring *temp = new Recurring(account);
+                obj.Recurring_deposits.push_back(temp);
                 temp->display();
-                save_RD_details(*temp);
+                save_RD_details(*temp, acc_num);
                 //break;
                 return;
             }
             case 2:{
                 Fixed *temp = new Fixed(account);
+                obj.Fixed_deposits.push_back(temp);
                 temp->display();
                 save_FD_details(*temp);
                 //break;
@@ -287,11 +313,23 @@ void save_account_details(Account &obj, int flag = 1){
 
  static int RD_FD_counter {1};
 
-void save_RD_details(Recurring &obj){
+void save_RD_details(Recurring &obj, int flag = 1){
    
     ofstream file;
-    file.open("Files/RD_FD_account_details.txt", ios::app);
+   // file.open("Files/RD_account_details.txt", ios::app);
     
+    if(flag == 0){
+        file.open("Files/RD_account_details.txt");
+    }
+    else if(flag == -1){
+       file.open("Files/RD_account_details.txt"); 
+       file.close();
+       return;
+    }
+    else{
+       file.open("Files/RD_account_details.txt", ios::app); 
+    }
+
     if(!file){
         cout << "Error opening file : " << endl;
     }
@@ -309,7 +347,7 @@ void save_RD_details(Recurring &obj){
     file << setw(10) << left << RD_FD_counter
          << setw(30) << left << obj.get_RD_account_holder()
          << setw(20) << left << obj.get_deposit_type()
-         << setw(20) << left << obj.get_RD_account_number()
+         << setw(20) << left << obj.get_account_number()
          << setw(20) << left << obj.get_RD_time_in_months()
          << setw(15) << left << obj.get_RD_intrest_rate()
          << left << obj.get_RD_creation_time_date() << endl;
@@ -322,7 +360,7 @@ void save_RD_details(Recurring &obj){
 void save_FD_details(Fixed &obj){
    
     ofstream file;
-    file.open("Files/RD_FD_account_details.txt", ios::app);
+    file.open("Files/FD_account_details.txt", ios::app);
 
     if(!file){
         cout << "Error opening file : " << endl;
@@ -360,3 +398,96 @@ void update_account_details_in_file(Bank &obj){
     }       
 }
 
+void update_RD_details(Bank &obj){
+    RD_FD_counter = 1;
+    int i = 0;
+    if(obj.Recurring_deposits.size() == 0){
+        save_RD_details(*obj.Recurring_deposits[i],-1);
+    }
+    while( i < obj.Recurring_deposits.size()){
+        save_RD_details(*obj.Recurring_deposits[i],i);
+        i++;
+    }
+}
+
+void get_a_loan(Bank &obj){
+    int acc_num;
+    cout << "Enter the account number of the the loan bearer : " << endl;
+    cin >> acc_num;
+    int i = 0;
+    for(i = 0; i<obj.Accounts.size(); i++){
+                    if( acc_num == obj.Accounts[i]->get_account_number()){
+                        Account temp = (*obj.Accounts[i]);
+                        cout << temp;
+                        break;
+                    }
+                }
+    Account *temp = obj.Accounts[i];
+    Loan *loan = new Loan(*temp);
+    obj.Loan.push_back(loan);
+}
+
+void perform_operations_on_RD(Bank &obj){
+    int acc_num;
+                cout << "Enter the account number of the Recurring Deposit : " << endl;
+                cin >> acc_num;
+                Recurring *temp;
+                for(int i = 0; i < obj.Recurring_deposits.size(); i++){
+                    if( acc_num == obj.Recurring_deposits[i]->get_account_number()){
+                        temp = obj.Recurring_deposits[i];
+                        temp->display();
+                        break;
+                    }
+                }
+     
+    cout << "Choose appropriate operation operation on the RD : " << endl;
+    cout << "1. Deposit money into Recurring Deposit " << endl;
+    cout << "2. View Recurring Deposit Details " << endl;
+    cout << "3. Break Recurring Deposit before maturity " << endl;
+     start:
+     int choice {0};
+     try{
+            choice = get_input_number();
+        }catch (const invalid_argument &error){
+            cout << error.what() << endl;
+            goto start;
+        }
+    switch(choice){
+        case 1:{
+            temp->deposit();
+            cout << "Deposit has been successfully made " << endl;
+            update_RD_details(obj);
+            return;
+        }
+        case 2:{
+            temp->display();
+            return;
+        }
+        case 3:{
+            delete_element(obj.Recurring_deposits, *temp);
+            update_RD_details(obj);
+            break;
+        }
+        default: {
+            cout << "please pick an appropriate option : " << endl;
+            break;
+        }
+    }
+    
+}
+
+void close_bank_account(Bank &obj){
+    int acc_num;
+        cout << "Enter the account number of the account you want to close " << endl;
+        cin >> acc_num;
+        int i;
+                for(i = 0; i<obj.Accounts.size(); i++){
+                    if( acc_num == obj.Accounts[i]->get_account_number()){
+                        obj.Accounts[i]->display();
+                        break;
+                    }
+                }
+        Account *account = obj.Accounts[i];
+        delete_element(obj.Accounts, *account);
+        update_account_details_in_file(obj); 
+}

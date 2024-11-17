@@ -24,7 +24,7 @@ int main(){
             continue;
         }
 
-        if (choice == 4) {
+        if (choice == 7) {
             cout << "Thank you for trying us " << endl;
             break;
         }
@@ -41,6 +41,18 @@ int main(){
             case 3:{
                 perform_operations_on_accounts(Bank);
                 //cout << "Adding functionality to update existing account " << endl;
+                break;
+            }
+            case 4:{
+                get_a_loan(Bank);
+                break;
+            }
+            case 5:{
+                perform_operations_on_RD(Bank);
+                break;
+            }
+            case 6:{
+                close_bank_account(Bank);
                 break;
             }
             default :{

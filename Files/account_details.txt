@@ -1,20 +1,2 @@
 Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         Prathamesh                    Bank Account        100554              20000               Thu Nov 14 13:03:14 2024
-2         Atharva                       Savings Account     100609              5000                Thu Nov 14 13:03:33 2024
-3         Pavan                         Salary Account      100652              10000               Thu Nov 14 13:03:45 2024
-Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         Prathamesh                    Bank Account        101370              23132               Thu Nov 14 13:07:34 2024
-Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         Prathamesh                    Bank Account        117829              10000               Thu Nov 14 14:31:25 2024
-Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         Prathamesh Ghormare           Bank Account        118390              12314               Thu Nov 14 14:34:16 2024
-Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         Prathamesh                    Bank Account        118625              12345               Thu Nov 14 14:35:27 2024
-Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         Prathamesh ghormare           Bank Account        118959              23134               Thu Nov 14 14:37:13 2024
-Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         wqeq                          Bank Account        120036              21323               Thu Nov 14 14:42:40 2024
-Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         weqeq                         Bank Account        120719              21313               Thu Nov 14 14:46:09 2024
-Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         prathae                       Bank Account        121052              231322              Thu Nov 14 14:47:50 2024
+1         p                             Bank Account        126219              123456              Sun Nov 17 18:29:44 2024

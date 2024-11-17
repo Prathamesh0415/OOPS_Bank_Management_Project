@@ -67,3 +67,7 @@ ostream& operator<<(ostream &out, Account &obj){
     return out;
 
 }
+
+bool Account::operator==(Account &obj){
+    return this->get_account_number() == obj.get_account_number();
+}
