@@ -26,6 +26,7 @@ template <typename T>
 void delete_element(std::vector<T *>& vec, T &value);
 void close_bank_account(Bank &obj);
 void transaction_details(Account &obj, int acc_no, std::string transaction_type, double amount);
+void save_loan_details(Loan &obj);
 //void salary_transaction_details(Account &obj, int acc_no);
 
 #endif

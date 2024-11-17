@@ -433,6 +433,7 @@ void get_a_loan(Bank &obj){
     Account *temp = obj.Accounts[i];
     Loan *loan = new Loan(*temp);
     obj.Loan.push_back(loan);
+    save_loan_details(*loan);
 }
 
 void perform_operations_on_RD(Bank &obj){
@@ -535,6 +536,42 @@ void transaction_details(Account &obj, int acc_no, string transaction_type, doub
 
     file.close();
     
+}
+
+static int loan_counter {1};
+
+void save_loan_details(Loan &obj){
+    ofstream file;
+    
+       file.open("Files/loan_details.txt", ios::app); 
+
+    if(!file){
+        cout << "Error opening file : " << endl;
+    }
+
+    if(loan_counter == 1){
+        file << setw(10) << left << "Sr No."
+         << setw(30) << left << "Name"
+         << setw(20) << left << "Loan type"
+         << setw(20) << left << "Account Number"
+         << setw(15) << left << "Loan intrest"
+         << setw(20) << left << "Loan time"
+         << setw(20) << left << "Loan amount"
+         << left << "Date of creation" << endl;
+    }
+
+    file << setw(10) << left << loan_counter
+         << setw(30) << left << obj.get_loan_account_holder()
+         << setw(20) << obj.get_loan_type()
+         << setw(20) << left << obj.get_account_number()
+         << setw(20) << left << obj.get_loan_intrest()
+         << setw(20) << left << obj.get_loan_time()
+         << setw(20) << left << obj.get_loan_amount()
+         << left << obj.get_creation();
+    loan_counter++;
+
+    file.close();
+
 }
 
 /*void salary_transaction_details(Account &obj, int acc_no){

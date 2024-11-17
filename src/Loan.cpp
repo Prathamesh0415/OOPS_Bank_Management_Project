@@ -1,5 +1,6 @@
 #include "../include/Account.h"
 #include "../include/Loan.h"
+#include "../include/Utility.h"
 #include<iostream>
 #include<algorithm>
 #include<cmath>
@@ -8,6 +9,7 @@ using namespace std;
 Loan::Loan(Account &obj){
     this->Loan_account_holder = obj.get_account_holder();
     this -> Loan_account_number = obj.get_account_number();
+    this->creation = get_current_time_date();
 
     double l_amount;
     cout<< "Enter the amount to be loaned : "<< endl;
@@ -20,14 +22,17 @@ Loan::Loan(Account &obj){
     switch(choice)
     {
     case 1:  //Personal
+        this->loan_type = "Personal";
         this->loan_interset = 10.0;
         this->loan_time = 5;
         break;
     case 2:  //Home
+        this->loan_type = "Home";
         this->loan_interset = 8.5;
         this->loan_time = 14;
         break;
     case 3: //Car
+        this->loan_type = "Car";
         this->loan_interset = 7.5;
         this->loan_time = 7;
         break;
@@ -63,4 +68,32 @@ double Loan::calculate_monthlypayment(){
 
 double Loan::Total_payment(){
     return monthly_pay * loan_time * 12;
+}
+
+string Loan::get_loan_type(){
+    return this->loan_type;
+}
+
+int Loan::get_account_number(){
+    return this->Loan_account_number;
+}
+
+double Loan::get_loan_intrest(){
+    return this->loan_interset;
+}
+
+double Loan::get_loan_amount(){
+    return this->loan_amount;
+}
+
+double Loan::get_loan_time(){
+    return this->loan_time;
+}
+
+string Loan::get_creation(){
+    return this->creation;
+}
+
+string Loan::get_loan_account_holder(){
+    return this->Loan_account_holder;
 }
