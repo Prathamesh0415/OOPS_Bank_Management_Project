@@ -1,7 +1,7 @@
 -> Loan implementation
 -> and FD functions
 -> **better UI/UX 
--> transaction history
 -> Account not found bug
 -> different vectors for loan objects
+-> salary transaction hstory
 

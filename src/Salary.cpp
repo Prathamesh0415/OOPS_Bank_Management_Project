@@ -9,6 +9,7 @@ Salary::Salary() : Account(), monthly_salary(0.0) {}
 
 Salary::Salary(int acc_no, double salary, string name) : Account(acc_no, name, salary), monthly_salary(salary) {
     this->account_type = "Salary Account";
+    this->account_number = acc_no;
 }
 
 void Salary::display() {
@@ -38,3 +39,13 @@ void Salary::set_salary(double salary) {
 double Salary::get_salary() const {
     return this->monthly_salary;
 }
+
+int Salary::get_account_number(){
+    return this->account_number;
+}
+
+void Salary::deposit_salary(){
+    this->balance += monthly_salary;
+}
+
+int Salary::sr_no {0};

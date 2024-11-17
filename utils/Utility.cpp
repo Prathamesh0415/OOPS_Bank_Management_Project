@@ -15,6 +15,7 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
@@ -250,6 +251,7 @@ void perform_operations_on_accounts(Bank &obj){
                 }
                 account->deposit(amount);
                 update_account_details_in_file(obj);
+                transaction_details(*account, acc_num, "deposit", amount);
                 break;
             }
             case 4:{
@@ -267,7 +269,13 @@ void perform_operations_on_accounts(Bank &obj){
                 }
                 account->withdraw(amount);
                 update_account_details_in_file(obj);
+                transaction_details(*account, acc_num, "withdraw", amount);
                 break;
+            }
+            case 5:{
+                    account->deposit_salary();
+                    //salary_transaction_details(*account, acc_num);
+                    break;
             }
             default : {
                 cout << "Enter appropriate choice : " << endl;
@@ -491,3 +499,74 @@ void close_bank_account(Bank &obj){
         delete_element(obj.Accounts, *account);
         update_account_details_in_file(obj); 
 }
+
+void transaction_details(Account &obj, int acc_no, string transaction_type, double amount){
+    
+    string filename1 = "Files/";
+    string filename2 = to_string(obj.get_account_number());
+    string filename3 = ".txt";
+
+    string filename = filename1 + filename2 + filename3;
+    ofstream file;
+
+    std::ifstream inFile(filename);
+    bool file_exists = inFile.is_open(); // File exists if it can be opened
+    inFile.close();
+    
+    file.open(filename.c_str(), ios::app);
+
+
+    
+    if(!file_exists){
+        file << setw(5) <<  left <<"Sr No." 
+             << setw(30) << left <<"Name " 
+             << setw(15) << left <<"transaction amount " 
+             << setw(20) << left <<"transaction type" 
+             << setw(20) << left << "date and time of transaction" << endl;
+    }
+
+    if(transaction_type == "deposit") obj.deposit_counter++;
+    if(transaction_type == "withdraw") obj.withdraw_counter++;
+
+    file      << setw(30) << left << obj.get_account_holder() 
+             << setw(15) << left << amount 
+             << setw(20) <<  left << transaction_type 
+             << setw(20) << left << get_current_time_date() << endl;
+
+    file.close();
+    
+}
+
+/*void salary_transaction_details(Account &obj, int acc_no){
+
+    ofstream file;
+
+    string filename1 = "Files/";
+    string filename2 = to_string(obj.get_account_number());
+    string filename3 = ".txt";
+
+    string filename = filename1 + filename2 + filename3;
+
+    std::ifstream inFile(filename);
+    bool file_exists = inFile.is_open(); // File exists if it can be opened
+    inFile.close();
+
+    file.open(filename.c_str(), ios::app);
+
+    if(file_exists){
+        file << setw(30) << left <<"Name " 
+             << setw(15) << left <<"transaction amount " 
+             << setw(20) << left <<"transaction type" 
+             << setw(20) << left << "date and time of transaction" << endl;
+    }
+
+    obj.sr_no++;
+
+    file     << setw(30) << left << obj.get_account_holder() 
+             << setw(15) << left << obj.get_salary()
+             << setw(20) <<  left << "Monthly Salary" 
+             << setw(20) << left << get_current_time_date() << endl;
+
+    file.close();
+
+}*/

@@ -9,6 +9,7 @@ private:
     double monthly_salary;
 
 public:
+    static int sr_no;
     Salary();
     Salary(int acc_no, double salary, std::string name);
 
@@ -18,6 +19,9 @@ public:
 
     void set_salary(double salary);
     double get_salary() const;
+
+    virtual int get_account_number();
+    virtual void deposit_salary();
 };
 
 #endif

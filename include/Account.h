@@ -13,7 +13,13 @@ class Account {
         double balance;
         std::string account_holder;
         std::string creation_time_date;
+
     public :
+
+    static int deposit_counter;
+    static int withdraw_counter;
+    static int sr_no;
+
         Account();
         Account(int acc_no, std::string name, double amount);
 
@@ -28,6 +34,9 @@ class Account {
         std::string get_account_type();
 
         bool operator==( Account &obj);
+
+        virtual void deposit_salary();
+       // virtual double get_salary();
 
 };
 

@@ -39,6 +39,10 @@ void Saving::display(){
 
 }
 
+int Saving::get_account_number(){
+    return this->account_number;
+}
+
 
 
 

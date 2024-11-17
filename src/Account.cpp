@@ -8,6 +8,9 @@ using namespace  std;
 
 Account::Account(){};
 
+int Account::deposit_counter {0};
+int Account::withdraw_counter {0};
+
 Account::Account(int number, string name, double amount){
 
     this->account_holder = name;
@@ -39,10 +42,12 @@ double Account::get_balance(){
 
 void Account::deposit(double amount){
     this->balance += amount;
+    //deposit_counter ++;
 }
 
 void Account::withdraw(double amount){
     this->balance -= amount;
+    //withdraw_counter ++; 
 }
 
 string Account::get_creation_time_date(){
@@ -71,3 +76,8 @@ ostream& operator<<(ostream &out, Account &obj){
 bool Account::operator==(Account &obj){
     return this->get_account_number() == obj.get_account_number();
 }
+
+void Account::deposit_salary(){
+    return;
+}
+
