@@ -52,6 +52,16 @@ void delete_element(std::vector<T *>& vec, T &value) {
    return;
 }
 
+template <typename T>
+int find_element(std::vector<T *>&vec, int &acc_no){
+    for(int i=0; i<vec.size(); i++){
+        if(vec[i]->get_account_number() == acc_no){
+            return acc_no;
+        }
+    }
+    return -1;
+}
+
 void flush_input(){
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
@@ -67,7 +77,7 @@ void main_display(){
         cout << " 7. To exit " << endl;
 }
 
-Account type_account_display(Bank &obj){
+void type_account_display(Bank &obj){
     int acc_no = {000000};
                 do{
                     acc_no = random_generation_acc_number();
@@ -81,6 +91,7 @@ Account type_account_display(Bank &obj){
                 cout << " 1. For Bank Account" << endl;
                 cout << " 2. For Saving Account " << endl;
                 cout << " 3. For Salary Account " << endl;
+                //cout << " 4. To exit " << endl;
                 //cin >> account_choice;
 
                 try {
@@ -111,7 +122,8 @@ Account type_account_display(Bank &obj){
                         Account *temp = new Account(acc_no, name, amount);
                         obj.Accounts.push_back(temp);
                         temp->display();
-                        return *temp;
+                        save_account_details(*temp, 1);
+                        return;
                     }
                     case 2:{
                         double intrest;
@@ -145,7 +157,9 @@ Account type_account_display(Bank &obj){
                         Account *temp = new Saving(acc_no, name, intrest, amount);
                         obj.Accounts.push_back(temp);
                         temp->display();
-                        return *temp;
+                        //return *temp;
+                        save_account_details(*temp, 1);
+                        return;
                     }
                     case 3:{
                         std::string name;
@@ -167,8 +181,13 @@ Account type_account_display(Bank &obj){
                         Account *temp = new Salary(acc_no, salary, name);
                         obj.Accounts.push_back(temp);
                         temp->display();
-                        return *temp;
+                        //return *temp;
+                        save_account_details(*temp, 1);
+                        return;
                     }
+                    /*case 4:{
+                        return;
+                    }*/
                     default:{
                         cout << "Choose an appropiate number " << endl;
                         break;
@@ -180,9 +199,15 @@ Account type_account_display(Bank &obj){
 }
 
 void view_details_account_display(Bank &obj){
-    int acc_num;
+                int acc_num;
                 cout << "Enter the account number you want to know details about : " << endl;
                 cin >> acc_num;
+
+                acc_num = find_element(obj.Accounts, acc_num);
+                if(acc_num == -1){
+                    cout << "Account not found " << endl;
+                    return;
+                } 
 
                 for(int i = 0; i<obj.Accounts.size(); i++){
                     if( acc_num == obj.Accounts[i]->get_account_number()){
@@ -190,13 +215,19 @@ void view_details_account_display(Bank &obj){
                         cout << temp;
                         break;
                     }
-                }
+                }  
 }
 
 void perform_operations_on_accounts(Bank &obj){
     int acc_num;
-        cout << "Enter the account number you want to perform operations on : " << endl;
-        cin >> acc_num;
+                cout << "Enter the account number you want to perform operations on : " << endl;
+                cin >> acc_num;
+
+                acc_num = find_element(obj.Accounts, acc_num);
+                if(acc_num == -1){
+                    cout << "Account not found " << endl;
+                    return;
+                }
         int i;
                 for(i = 0; i<obj.Accounts.size(); i++){
                     if( acc_num == obj.Accounts[i]->get_account_number()){
@@ -213,6 +244,7 @@ void perform_operations_on_accounts(Bank &obj){
         cout << "3. To deposit money into bank account " << endl;
         cout << "4. To withdraw money from bank account " << endl;
         cout << "5. To deposit salary into salary account " << endl;
+        cout << "6. To exit " << endl;
         try{
             choice = get_input_number();
         }catch (const invalid_argument &error){
@@ -276,6 +308,9 @@ void perform_operations_on_accounts(Bank &obj){
                     account->deposit_salary();
                     //salary_transaction_details(*account, acc_num);
                     break;
+            }
+            case 6:{
+                return;
             }
             default : {
                 cout << "Enter appropriate choice : " << endl;
@@ -420,8 +455,14 @@ void update_RD_details(Bank &obj){
 
 void get_a_loan(Bank &obj){
     int acc_num;
-    cout << "Enter the account number of the the loan bearer : " << endl;
-    cin >> acc_num;
+                cout << "Enter the account number of the loan bearer : " << endl;
+                cin >> acc_num;
+
+                acc_num = find_element(obj.Accounts, acc_num);
+                if(acc_num == -1){
+                    cout << "Account not found " << endl;
+                    return;
+                }
     int i = 0;
     for(i = 0; i<obj.Accounts.size(); i++){
                     if( acc_num == obj.Accounts[i]->get_account_number()){
@@ -438,8 +479,14 @@ void get_a_loan(Bank &obj){
 
 void perform_operations_on_RD(Bank &obj){
     int acc_num;
-                cout << "Enter the account number of the Recurring Deposit : " << endl;
+                cout << "Enter the account number of the recurring deposit : " << endl;
                 cin >> acc_num;
+
+                acc_num = find_element(obj.Accounts, acc_num);
+                if(acc_num == -1){
+                    cout << "Account not found " << endl;
+                    return;
+                }
                 Recurring *temp;
                 for(int i = 0; i < obj.Recurring_deposits.size(); i++){
                     if( acc_num == obj.Recurring_deposits[i]->get_account_number()){
@@ -453,6 +500,7 @@ void perform_operations_on_RD(Bank &obj){
     cout << "1. Deposit money into Recurring Deposit " << endl;
     cout << "2. View Recurring Deposit Details " << endl;
     cout << "3. Break Recurring Deposit before maturity " << endl;
+    cout << "4. Exit " << endl;
      start:
      int choice {0};
      try{
@@ -476,6 +524,9 @@ void perform_operations_on_RD(Bank &obj){
             delete_element(obj.Recurring_deposits, *temp);
             update_RD_details(obj);
             break;
+        }
+        case 4:{
+            return;
         }
         default: {
             cout << "please pick an appropriate option : " << endl;
@@ -519,8 +570,7 @@ void transaction_details(Account &obj, int acc_no, string transaction_type, doub
 
     
     if(!file_exists){
-        file << setw(5) <<  left <<"Sr No." 
-             << setw(30) << left <<"Name " 
+        file << setw(30) << left <<"Name " 
              << setw(15) << left <<"transaction amount " 
              << setw(20) << left <<"transaction type" 
              << setw(20) << left << "date and time of transaction" << endl;
@@ -529,7 +579,7 @@ void transaction_details(Account &obj, int acc_no, string transaction_type, doub
     if(transaction_type == "deposit") obj.deposit_counter++;
     if(transaction_type == "withdraw") obj.withdraw_counter++;
 
-    file      << setw(30) << left << obj.get_account_holder() 
+    file     << setw(30) << left << obj.get_account_holder() 
              << setw(15) << left << amount 
              << setw(20) <<  left << transaction_type 
              << setw(20) << left << get_current_time_date() << endl;

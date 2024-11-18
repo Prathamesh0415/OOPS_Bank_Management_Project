@@ -1,2 +1,0 @@
-Sr No.    Name                          Loan type           Account Number      Loan intrest   Loan time           Loan amount         Date of creation
-1         Prat                          Personal            101443              10                  5                   10000               Mon Nov 18 00:45:05 2024

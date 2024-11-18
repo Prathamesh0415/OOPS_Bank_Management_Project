@@ -1,7 +1,6 @@
--> Loan implementation
+-> continuity bugs
 -> and FD functions
 -> **better UI/UX 
 -> Account not found bug
--> different vectors for loan objects
 -> salary transaction hstory
 

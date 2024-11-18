@@ -1,2 +1,0 @@
-Sr No.    Name                          Account type        Account Number      Account Balance     Date of creation
-1         Prat                          Bank Account        101443              123456              Mon Nov 18 00:44:56 2024

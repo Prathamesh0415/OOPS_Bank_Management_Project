@@ -12,7 +12,7 @@ std::string get_current_time_date();
 int random_generation_acc_number();
 void flush_input();
 void main_display();
-Account type_account_display(Bank &obj);
+void type_account_display(Bank &obj);
 void view_details_account_display(Bank &obj);
 void perform_operations_on_accounts(Bank &obj);
 void save_account_details(Account &obj, int flag);
@@ -27,6 +27,8 @@ void delete_element(std::vector<T *>& vec, T &value);
 void close_bank_account(Bank &obj);
 void transaction_details(Account &obj, int acc_no, std::string transaction_type, double amount);
 void save_loan_details(Loan &obj);
+template <typename T>
+int find_element(std::vector<T *>&vec, int &acc_no);
 //void salary_transaction_details(Account &obj, int acc_no);
 
 #endif

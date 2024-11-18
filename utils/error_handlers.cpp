@@ -58,3 +58,13 @@ double get_withdraw_amount(Account &obj){
         return amount;
     }
 }
+
+/*int get_account_number(Bank &obj){
+    int acc;
+    cin >> acc;
+    acc = find_element(obj.Accounts, acc);
+    if(acc == -1){
+        throw string("Account not found");
+    }
+    return acc;
+}*/
