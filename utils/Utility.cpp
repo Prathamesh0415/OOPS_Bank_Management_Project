@@ -324,6 +324,13 @@ static int account_counter {1};
 void save_account_details(Account &obj, int flag = 1){
     
     ofstream file;
+
+    if(flag == -1){
+        file.open("Files/account_details.txt");
+        file.close();
+        return;
+    }
+
     if(flag == 0){
     file.open("Files/account_details.txt");
     }else{
@@ -435,6 +442,11 @@ void save_FD_details(Fixed &obj){
 void update_account_details_in_file(Bank &obj){
     account_counter = 1;
     int i = 0;
+
+    if(obj.Accounts.size() == 0){
+        save_account_details(*obj.Accounts[i], -1);
+    }
+
     while( i < obj.Accounts.size()){
         save_account_details(*obj.Accounts[i],i);
         i++;
@@ -571,9 +583,9 @@ void transaction_details(Account &obj, int acc_no, string transaction_type, doub
     
     if(!file_exists){
         file << setw(30) << left <<"Name " 
-             << setw(15) << left <<"transaction amount " 
-             << setw(20) << left <<"transaction type" 
-             << setw(20) << left << "date and time of transaction" << endl;
+             << setw(30) << left <<"transaction amount " 
+             << setw(30) << left <<"transaction type" 
+             << setw(30) << left << "date and time of transaction" << endl;
     }
 
     if(transaction_type == "deposit") obj.deposit_counter++;
